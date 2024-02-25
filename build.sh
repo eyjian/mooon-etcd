@@ -5,8 +5,8 @@
 # 本镜像用于测试
 
 ETCD_VER="v3.5.12" # etcd 版本
-BASE_IMAGE="echo ${BASE_IMAGE:-}" # 指定基础镜像（要求 64 位 AMD64 Linux）
-MAINTAINER="echo ${MAINTAINER:-}" # 镜像维护者
+BASE_IMAGE=`echo "${BASE_IMAGE:-}"` # 指定基础镜像（要求 64 位 AMD64 Linux）
+MAINTAINER=`echo "${MAINTAINER:-}"` # 镜像维护者
 
 # 设置下载的 URL
 GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
