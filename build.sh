@@ -54,18 +54,14 @@ $WORK_DIR/etcdutl version
 
 # 生成 Dockerfile 文件
 rm -f $WORK_DIR/Dockerfile
-echo "FROM $BASEIMAGE" >> $WORK_DIR/Dockerfile
+echo "FROM $BASE_IMAGE" >> $WORK_DIR/Dockerfile
 echo "MAINTAINER $MAINTAINER" >> $WORK_DIR/Dockerfile
-
 echo "" >> $WORK_DIR/Dockerfile
-
 echo "WORKDIR /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcd /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdctl /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdutl /root/" >> $WORK_DIR/Dockerfile
-
 echo "" >> $WORK_DIR/Dockerfile
-
 echo "ENTRYPOINT [\"/root/etcd\"]" >> $WORK_DIR/Dockerfile
 
 # 构建镜像
