@@ -7,6 +7,7 @@
 ETCD_VER="v3.5.12" # etcd 版本
 BASE_IMAGE=`echo "${BASE_IMAGE:-}"` # 指定基础镜像（要求 64 位 AMD64 Linux）
 MAINTAINER=`echo "${MAINTAINER:-}"` # 镜像维护者
+IMAGE_REPO=`echo "${IMAGE_REPO:-}"` # 镜像仓库（制作好的 etcd 镜像将放在这里）
 
 # 设置下载的 URL
 GITHUB_URL=https://github.com/etcd-io/etcd/releases/download
@@ -26,6 +27,13 @@ if test -z "$MAINTAINER"; then
     exit 2
 fi
 echo "MAINTAINER: $MAINTAINER"
+
+# IMAGE_REPO
+if test -z "$IMAGE_REPO"; then
+    echo "Variable IMAGE_REPO is not set, example: export IMAGE_REPO=\"cr.console.aliyun.com\""
+    exit 3
+fi
+echo "IMAGE_REPO: $IMAGE_REPO"
 
 set -e
 
@@ -59,6 +67,23 @@ echo "COPY $WORK_DIR/etcdutl /root/" >> $WORK_DIR/Dockerfile
 echo "" >> $WORK_DIR/Dockerfile
 
 echo "ENTRYPOINT [\"/root/etcd\"]" >> $WORK_DIR/Dockerfile
+
+# 构建镜像
+CMD="docker build -t $IMAGE_REPO/etcd:${ETCD_VER} ."
+echo "$CMD"
+sh -c "$CMD"
+
+# 确认是否推送镜像
+echo -e "Do you want to push etcd:${ETCD_VER} to $IMAGE_REPO: "
+read -p "(yes or no)" choice
+if test "X$choice" != "Xyes"; then
+    exit 4
+fi
+
+# 推送镜像
+CMD="docker push $IMAGE_REPO/etcd:${ETCD_VER}"
+echo "$CMD"
+sh -c "$CMD"
 
 set +e
 
