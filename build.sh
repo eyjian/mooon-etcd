@@ -63,8 +63,8 @@ echo "COPY $WORK_DIR/etcdctl /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdutl /root/" >> $WORK_DIR/Dockerfile
 echo "" >> $WORK_DIR/Dockerfile
 echo "ENTRYPOINT [\"/root/etcd\"]" >> $WORK_DIR/Dockerfile
-# 注意 advertise-client-urls 的值不能为 http://0.0.0.0:2379，
-# 需为一个可对外的地址，如果只本地使用，可设置为 http://127.0.0.1:2379，
+# 注意 advertise-client-urls 的值不能为 http://0.0.0.0:2379，否则报错"transport: Error while dialing: dial tcp 0.0.0.0:2379: connect: connection refused"。
+# 而需为一个可对外的地址。但如果只本地使用，则可设置为 http://127.0.0.1:2379，
 # 实际中可使用环境变量 NODE_IP 的值。
 echo "CMD [\"--listen-client-urls\",\"http://0.0.0.0:2379\",\"--advertise-client-urls\",\"http://127.0.0.1:2379\"]" >> $WORK_DIR/Dockerfile
 
