@@ -42,7 +42,7 @@ rm -f $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
 # 下载二进制包并解压
 curl -L ${DOWNLOAD_URL}/${ETCD_VER}/etcd-${ETCD_VER}-linux-amd64.tar.gz -o $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz
-tar xzf /tmp/etcd-${ETCD_VER}-linux-amd64.tar.gz -C $WORK_DIR --strip-components=1
+tar xzf $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz -C $WORK_DIR --strip-components=1
 
 # 删除二进制包
 rm -f $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz
