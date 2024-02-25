@@ -3,6 +3,8 @@
 # 制作 etcd 的镜像
 # 参考：https://github.com/etcd-io/etcd/releases
 # 本镜像用于测试
+FILEPATH="$(readlink -f $0)"
+BASEDIR="$(dirname $FILEPATH)" # 本脚本文件所在目录
 
 ETCD_VER="v3.5.12" # etcd 版本
 BASE_IMAGE=`echo "${BASE_IMAGE:-}"` # 指定基础镜像（要求 64 位 AMD64 Linux）
@@ -37,6 +39,9 @@ echo "IMAGE_REPO: $IMAGE_REPO"
 
 set -e
 
+# 将启动脚本复制到工作目录
+cp $BASEDIR/start_etcd.sh $WORK_DIR/
+
 # 删除已存在的
 rm -f $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz
 
@@ -58,6 +63,7 @@ echo "FROM $BASE_IMAGE" >> $WORK_DIR/Dockerfile
 echo "MAINTAINER $MAINTAINER" >> $WORK_DIR/Dockerfile
 echo "" >> $WORK_DIR/Dockerfile
 echo "WORKDIR /root/" >> $WORK_DIR/Dockerfile
+echo "COPY $WORK_DIR/start_etcd.sh /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcd /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdctl /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdutl /root/" >> $WORK_DIR/Dockerfile
