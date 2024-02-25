@@ -18,12 +18,14 @@ if test -z "$BASE_IMAGE"; then
     echo "Variable BASE_IMAGE is not set"
     exit 1
 fi
+echo "BASE_IMAGE: $BASE_IMAGE"
 
 # MAINTAINER
 if test -z "$MAINTAINER"; then
     echo "Variable MAINTAINER is not set"
-    exit 1
+    exit 2
 fi
+echo "MAINTAINER: $MAINTAINER"
 
 set -e
 
