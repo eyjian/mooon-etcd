@@ -70,8 +70,8 @@ echo "$CMD"
 sh -c "$CMD"
 
 # 确认是否推送镜像
-echo -e "Do you want to push etcd:${ETCD_VER} to $IMAGE_REPO: "
-read -p "(yes or no)" choice
+echo -ne "Do you want to push etcd:${ETCD_VER} to $IMAGE_REPO:"
+read -p " (yes or no) " choice
 if test "X$choice" != "Xyes"; then
     exit 4
 fi
