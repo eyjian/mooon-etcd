@@ -15,14 +15,14 @@ WORK_DIR=. # 在哪个目录下制作镜像
 
 # BASE_IMAGE
 if test -z "$BASE_IMAGE"; then
-    echo "Variable BASE_IMAGE is not set"
+    echo "Variable BASE_IMAGE is not set, example: export BASE_IMAGE=\"hub.docker.com/centos:centos8\""
     exit 1
 fi
 echo "BASE_IMAGE: $BASE_IMAGE"
 
 # MAINTAINER
 if test -z "$MAINTAINER"; then
-    echo "Variable MAINTAINER is not set"
+    echo "Variable MAINTAINER is not set, example: export MAINTAINER=\"yijian<eyjian@qq.com>\""
     exit 2
 fi
 echo "MAINTAINER: $MAINTAINER"
