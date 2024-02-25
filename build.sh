@@ -40,6 +40,7 @@ echo "IMAGE_REPO: $IMAGE_REPO"
 set -e
 
 # 将启动脚本复制到工作目录
+chmod +x $BASEDIR/start_etcd.sh
 if test "$WORK_DIR" != "."; then
     cp $BASEDIR/start_etcd.sh $WORK_DIR/
 fi
