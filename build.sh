@@ -40,7 +40,9 @@ echo "IMAGE_REPO: $IMAGE_REPO"
 set -e
 
 # 将启动脚本复制到工作目录
-cp $BASEDIR/start_etcd.sh $WORK_DIR/
+if test "$WORK_DIR" != "."; then
+    cp $BASEDIR/start_etcd.sh $WORK_DIR/
+fi
 
 # 删除已存在的
 rm -f $WORK_DIR/etcd-${ETCD_VER}-linux-amd64.tar.gz
