@@ -63,6 +63,7 @@ echo "COPY $WORK_DIR/etcdctl /root/" >> $WORK_DIR/Dockerfile
 echo "COPY $WORK_DIR/etcdutl /root/" >> $WORK_DIR/Dockerfile
 echo "" >> $WORK_DIR/Dockerfile
 echo "ENTRYPOINT [\"/root/etcd\"]" >> $WORK_DIR/Dockerfile
+echo "CMD [\"--listen-client-urls\",\"http://0.0.0.0:2379\",\"--advertise-client-urls\",\"http://0.0.0.0:2379\"]" >> $WORK_DIR/Dockerfile
 
 # 构建镜像
 CMD="docker build -t $IMAGE_REPO/etcd:${ETCD_VER} ."
